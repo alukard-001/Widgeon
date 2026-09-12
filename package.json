@@ -1,0 +1,37 @@
+{
+  "name": "dev-widgets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "tailwind:build": "pnpm exec tailwindcss -i ./src/main.css -o ./assets/tailwind.css",
+    "tailwind:watch": "pnpm exec tailwindcss -i ./src/main.css -o ./assets/tailwind.css --watch",
+    "serve:web": "pnpm tailwind:build && concurrently -n \"tailwind,dioxus\" -c \"cyan,magenta\" --hide tailwind \"pnpm:tailwind:watch\" \"dx serve --platform web\"",
+    "serve:desktop": "pnpm tailwind:build && concurrently -n \"tailwind,dioxus\" -c \"cyan,magenta\" --hide tailwind \"pnpm:tailwind:watch\" \"dx serve --platform desktop\"",
+    "build:web": "pnpm tailwind:build && dx build --platform web --release",
+    "build:desktop": "pnpm tailwind:build && dx build --platform desktop --release",
+    "format:oxfmt": "oxfmt --write",
+    "format:rust": "dx fmt",
+    "format": "concurrently -n \"oxfmt,rust\" -c \"yellow,red\" \"pnpm:format:oxfmt\" \"pnpm:format:rust\"",
+    "format:check": "concurrently -n \"oxfmt,rust\" -c \"yellow,red\" \"oxfmt --check\" \"dx fmt --check\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "concurrently": "^10.0.5",
+    "daisyui": "^5.7.25",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.4.1",
+    "oxfmt": "^0.66.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "lint-staged": {
+    "*.{js,css,md,json,html,yml,yaml}": "oxfmt --write",
+    "*.rs": "sh -c 'for f in \"$@\"; do dx fmt -f \"$f\"; done' _"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher"
+    ]
+  }
+}

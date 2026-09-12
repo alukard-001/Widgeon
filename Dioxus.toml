@@ -1,0 +1,46 @@
+[application]
+
+# dioxus project name
+name = "Dev Widgets"
+
+# Web `build` & `serve` dist path
+out_dir = "dist"
+
+# resource (static) file folder
+asset_dir = "public"
+
+[web.app]
+
+# HTML title tag content
+title = "Dev Widgets"
+
+[web.watcher]
+
+watch_path = ["src", "index.html"]
+reload_html = true
+index_on_404 = true
+
+# include `assets` in web platform
+[web.resource]
+
+# CSS style file
+style = []
+
+# Javascript code file
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []
+
+[application.tools]
+
+[bundle]
+identifier = "com.esimkowitz.devwidgets"
+publisher = "Evan Simkowitz"
+resources = ["public/**/*"]
+copyright = "Copyright (c) Evan Simkowitz 2024. All rights reserved."
+category = "Developer Tool"
+short_description = "A set of helpful widgets written in Rust."

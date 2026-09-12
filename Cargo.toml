@@ -1,0 +1,85 @@
+[package]
+name = "dev-widgets"
+version = "0.4.0"
+edition = "2021"
+description = "Dev Widgets"
+readme = "README.md"
+
+[dependencies]
+base64ct = { version = "1.8", features = ["alloc"] }
+cidr = "0.3.2"
+color_processing = "0.6"
+digest = "0.11"
+dioxus = { version = "0.7.9", features = ["router", "logger"] }
+dioxus-free-icons = { version = "0.10.0", features = [
+  "bootstrap",
+  "font-awesome-solid",
+  "font-awesome-brands",
+  "font-awesome-regular",
+] }
+dioxus-sdk = { version = "0.7", features = ["storage"] }
+getrandom_02 = { package = "getrandom", version = "0.2", optional = true }
+getrandom = "0.3"
+getrandom_04 = { package = "getrandom", version = "0.4", optional = true }
+tracing = "0.1"
+manganis = "0.7.9"
+md-5 = "0.11"
+num-traits = "0.2"
+qrcode-generator = "5.0.0"
+sha1 = "0.11"
+sha2 = "0.11"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+strum = "0.28"
+strum_macros = "0.28"
+time = "0.3"
+time-tz = { version = "2.0", features = ["db", "system"] }
+uuid = { version = "1.23", features = ["v4", "v7", "rng-getrandom"] }
+lipsum = "0.9"
+rand = { version = "0.8", features = ["getrandom"] }
+wasm-bindgen = { version = "0.2.100", features = ["enable-interning"], optional = true }
+
+[features]
+desktop = ["dioxus/desktop"]
+web = [
+  "dioxus/web",
+  "getrandom/wasm_js",
+  "getrandom_02/js",
+  "dep:getrandom_02",
+  "getrandom_04/wasm_js",
+  "dep:getrandom_04",
+  "time/wasm-bindgen",
+  "uuid/js",
+  "dep:wasm-bindgen",
+]
+
+default = ["desktop"]
+
+[profile.release]
+lto = true # Use Link-Time-Optimization
+codegen-units = 1 # Fewer codegen units to increase optimizations.
+panic = "abort" # Aborting strips the stack unwind code from the binary.
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
+
+[target.'cfg(not(any(target_os = "windows", target_os = "none")))'.profile.release]
+strip = true # Automatically strip symbols from the binary. Only available for *nix targets.
+
+[package.metadata.bundle]
+name = "Dev Widgets"
+identifier = "com.esimkowitz.devwidgets"
+version = "0.4.0"
+resources = ["public/**/*"]
+copyright = "Copyright (c) Evan Simkowitz 2026. All rights reserved."
+category = "Developer Tool"
+short_description = "A set of helpful widgets written in Rust."
+osx_url_schemes = ["com.esimkowitz.devwidgets"]

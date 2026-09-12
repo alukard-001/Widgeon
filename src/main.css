@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@source "./**/*.rs";
+@plugin "daisyui";
+
+/* Base styles */
+@import "./base.css";
+
+/* Components */
+@import "./components/inputs.css";
+@import "./components/accordion.css";
+
+/* Layout */
+@import "./pages/layout.css";
+@import "./pages/widget.css";
+
+/* Pages */
+@import "./pages/home_page.css";
+@import "./pages/converter/date_converter.css";
+@import "./pages/generator/qr_code_generator.css";
+@import "./pages/media/color_picker.css";

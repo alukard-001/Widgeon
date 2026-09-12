@@ -1,0 +1,30 @@
+/* Date Converter - uses .widget-grid from widget.css */
+@layer components {
+  /* Widget-specific: date/time selectors layout */
+  .date-converter .selectors-wrapper {
+    @apply flex flex-row gap-y-3 gap-x-3 flex-nowrap;
+  }
+
+  .date-converter .selectors {
+    @apply flex flex-col flex-1;
+  }
+
+  .date-converter .selectors-inner {
+    @apply flex flex-row flex-nowrap gap-x-3;
+  }
+
+  .date-converter .selectors-inner .number-input {
+    @apply flex-1;
+    min-width: 100px;
+  }
+
+  @media screen and (max-width: 835px) {
+    .date-converter .selectors-wrapper {
+      @apply flex-wrap;
+    }
+
+    .date-converter .selectors {
+      @apply w-full;
+    }
+  }
+}
